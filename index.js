@@ -46,7 +46,7 @@ async function sendNotification(price) {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: '',
+          user: 'email account the notification will send from',
           pass: ''
         }
       });
