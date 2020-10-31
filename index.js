@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const CronJob = require('cron').CronJob;
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv'); //required for environment variables - NOTE you need a .env file saved in directory with key value pairs e.g. EMAIL_ADDRESS=stevenwalker@test.com
 
 const url = "https://direct.asda.com/george/home/living-room/gold-metal-trim-drinks-trolley/050125939,default,pd.html";
 
@@ -40,8 +41,8 @@ async function sendNotification(price) {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'email account the notification will send from',
-          pass: ''
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.EMAIL_PASSWORD
         }
       });
 
@@ -49,8 +50,8 @@ async function sendNotification(price) {
       let htmlText = `<a href=\"${url}\">Link</a>`;
 
       let info = await transporter.sendMail({
-        from: '"Price Tracker" <from email>',
-        to: "",
+        from: `"Price Tracker" <${process.env.EMAIL_ADDRESS}>`,
+        to: process.env.EMAIL_ADDRESS,
         subject: 'Now Available to Buy',
         text: textToSend,
         html: htmlText

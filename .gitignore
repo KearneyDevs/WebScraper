@@ -1,0 +1,8 @@
+# contains passwords
+.env
+
+# no need to store these in repo
+node_modules/
+
+# Mac OS files
+.DS_Store
